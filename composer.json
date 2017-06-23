@@ -1,0 +1,52 @@
+{
+    "name": "somnambulist/domain-events",
+    "type": "library",
+    "description": "Domain events for your entities, can be used with Doctrine.",
+    "keywords": [
+        "domain events",
+        "doctrine"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dave Redfern",
+            "email": "dave@scorpioframework.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Somnambulist\\DomainEvents\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Somnambulist\\Tests\\DomainEvents\\": "tests/",
+            "Events\\": "tests/_data/Events"
+        },
+        "classmap": [
+            "tests/_data/"
+        ],
+        "files": [
+            "tests/_data/helpers.php"
+        ]
+    },
+    "require": {
+        "php": ">=7",
+        "ext-bcmath" : "*",
+        "somnambulist/collection": "2.*",
+        "somnambulist/value-objects": "1.*"
+    },
+    "require-dev": {
+        "nesbot/carbon": "1.22.*",
+        "doctrine/orm": "2.5.*",
+        "phpunit/phpunit": "~6.0",
+        "illuminate/events": "~5.4",
+        "symfony/event-dispatcher": "~3.3",
+        "symfony/var-dumper": "~3.3",
+        "symfony/yaml": "~3.3"
+    },
+    "suggest": {
+        "doctrine/orm": "*",
+        "laravel-doctrine/orm": "*"
+    }
+}
