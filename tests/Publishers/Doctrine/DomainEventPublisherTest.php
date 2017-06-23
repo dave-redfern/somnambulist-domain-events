@@ -1,6 +1,6 @@
 <?php
 
-namespace Somnambulist\Tests\DomainEvents\Dispatchers\Doctrine;
+namespace Somnambulist\Tests\DomainEvents\Publishers\Doctrine;
 
 use Carbon\Carbon;
 use Doctrine\Common\Cache\ArrayCache;
@@ -79,7 +79,7 @@ class DomainEventPublisherTest extends TestCase
 
 
     /**
-     * @group dispatchers-doctrine-dispatcher
+     * @group publishers-doctrine-publisher
      */
     public function testFiresEvents()
     {
@@ -92,7 +92,7 @@ class DomainEventPublisherTest extends TestCase
     }
 
     /**
-     * @group dispatchers-doctrine-dispatcher
+     * @group publishers-doctrine-publisher
      */
     public function testFiresEventsWhenRelatedEntitiesChangedButRootNot()
     {
@@ -119,7 +119,7 @@ class DomainEventPublisherTest extends TestCase
     }
 
     /**
-     * @group dispatchers-doctrine-dispatcher
+     * @group publishers-doctrine-publisher
      */
     public function testFiresEventsInOrder()
     {

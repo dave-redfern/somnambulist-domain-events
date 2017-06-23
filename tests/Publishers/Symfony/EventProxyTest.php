@@ -1,6 +1,6 @@
 <?php
 
-namespace Somnambulist\Tests\DomainEvents\Dispatchers\Symfony;
+namespace Somnambulist\Tests\DomainEvents\Publishers\Symfony;
 
 use Somnambulist\DomainEvents\Publishers\Symfony\EventProxy;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +15,7 @@ class EventProxyTest extends TestCase
 {
 
     /**
-     * @group dispatchers-symfony-proxy
+     * @group publishers-symfony-proxy
      */
     public function testCreate()
     {

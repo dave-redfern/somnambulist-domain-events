@@ -1,6 +1,6 @@
 <?php
 
-namespace Somnambulist\Tests\DomainEvents\Dispatchers\Doctrine;
+namespace Somnambulist\Tests\DomainEvents\Publishers\Doctrine;
 
 use Somnambulist\DomainEvents\Publishers\Doctrine\EventProxy;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +15,7 @@ class EventProxyTest extends TestCase
 {
 
     /**
-     * @group dispatchers-doctrine-proxy
+     * @group publishers-doctrine-proxy
      */
     public function testCreate()
     {
@@ -27,7 +27,7 @@ class EventProxyTest extends TestCase
     }
 
     /**
-     * @group dispatchers-doctrine-proxy
+     * @group publishers-doctrine-proxy
      */
     public function testInvalidMethodRaisesException()
     {

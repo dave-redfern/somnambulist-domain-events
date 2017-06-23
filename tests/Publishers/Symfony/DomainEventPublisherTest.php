@@ -1,17 +1,17 @@
 <?php
 
-namespace Somnambulist\Tests\DomainEvents\Dispatchers\Laravel;
+namespace Somnambulist\Tests\DomainEvents\Publishers\Symfony;
 
 use Carbon\Carbon;
-use Illuminate\Events\Dispatcher;
 use PHPUnit\Framework\TestCase;
-use Somnambulist\DomainEvents\Publishers\Laravel\DomainEventPublisher;
+use Somnambulist\DomainEvents\Publishers\Symfony\DomainEventPublisher;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Class DomainEventPublisherTest
  *
- * @package    Somnambulist\Tests\DomainEvents\Publishers\Laravel
- * @subpackage Somnambulist\Tests\DomainEvents\Publishers\Laravel\DomainEventPublisherTest
+ * @package    Somnambulist\Tests\DomainEvents\Publishers\Symfony
+ * @subpackage Somnambulist\Tests\DomainEvents\Publishers\Symfony\DomainEventPublisherTest
  */
 class DomainEventPublisherTest extends TestCase
 {
@@ -24,9 +24,9 @@ class DomainEventPublisherTest extends TestCase
     protected function setUp()
     {
         $listener   = new \EventListener();
-        $dispatcher = new Dispatcher();
-        $dispatcher->listen(\MyEntityCreatedEvent::class, [$listener, 'onMyEntityCreated']);
-        $dispatcher->listen(\MyEntityAddedAnotherEntity::class, [$listener, 'onMyEntityAddedAnotherEntity']);
+        $dispatcher = new EventDispatcher();
+        $dispatcher->addListener('my.entity.created', [$listener, 'onMyEntityCreated']);
+        $dispatcher->addListener('my.entity.added.another.entity', [$listener, 'onMyEntityAddedAnotherEntity']);
 
         $this->publisher = new DomainEventPublisher($dispatcher);
     }
@@ -37,7 +37,7 @@ class DomainEventPublisherTest extends TestCase
     }
 
     /**
-     * @group dispatchers-symfony-dispatcher
+     * @group publishers-symfony-publisher
      */
     public function testPublishesDomainEvents()
     {
@@ -53,7 +53,7 @@ class DomainEventPublisherTest extends TestCase
     }
 
     /**
-     * @group dispatchers-symfony-dispatcher
+     * @group publishers-symfony-publisher
      */
     public function testFiresEventsWhenRelatedEntitiesChangedButRootNot()
     {
@@ -81,7 +81,7 @@ class DomainEventPublisherTest extends TestCase
     }
 
     /**
-     * @group dispatchers-symfony-dispatcher
+     * @group publishers-symfony-publisher
      */
     public function testFiresEventsInOrder()
     {
@@ -105,7 +105,7 @@ class DomainEventPublisherTest extends TestCase
     }
 
     /**
-     * @group dispatchers-symfony-dispatcher
+     * @group publishers-symfony-publisher
      */
     public function testCanStopListeningToEvents()
     {
@@ -132,7 +132,7 @@ class DomainEventPublisherTest extends TestCase
     }
 
     /**
-     * @group dispatchers-symfony-dispatcher
+     * @group publishers-symfony-publisher
      */
     public function testCanStopListeningToAllEvents()
     {
