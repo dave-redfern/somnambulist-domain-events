@@ -19,7 +19,6 @@
 namespace Somnambulist\DomainEvents\Publishers\Symfony;
 
 use Somnambulist\DomainEvents\AbstractEventPublisher;
-use Somnambulist\DomainEvents\Publishers\Symfony\EventProxy;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**

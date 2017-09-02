@@ -30,8 +30,9 @@ class DomainEventPublisherTest extends TestCase
     {
         $evm = new EventManager();
         $evm->addEventSubscriber(new DomainEventPublisher());
-        $evm->addEventListener('onMyEntityCreated', new \EventListener());
-        $evm->addEventListener('onMyEntityAddedAnotherEntity', new \EventListener());
+
+        $evm->addEventListener('onMyEntityCreated', new \DomainEventListener());
+        $evm->addEventListener('onMyEntityAddedAnotherEntity', new \DomainEventListener());
 
         $conn = [
             'driver'   => $GLOBALS['DOCTRINE_DRIVER'],

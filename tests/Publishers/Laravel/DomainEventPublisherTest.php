@@ -23,7 +23,7 @@ class DomainEventPublisherTest extends TestCase
 
     protected function setUp()
     {
-        $listener   = new \EventListener();
+        $listener   = new \DomainEventListener();
         $dispatcher = new Dispatcher();
         $dispatcher->listen(\MyEntityCreatedEvent::class, [$listener, 'onMyEntityCreated']);
         $dispatcher->listen(\MyEntityAddedAnotherEntity::class, [$listener, 'onMyEntityAddedAnotherEntity']);

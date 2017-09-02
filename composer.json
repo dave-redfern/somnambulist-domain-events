@@ -10,7 +10,7 @@
     "authors": [
         {
             "name": "Dave Redfern",
-            "email": "dave@scorpioframework.com"
+            "email": "info@somnambulist.tech"
         }
     ],
     "autoload": {
@@ -33,13 +33,13 @@
     "require": {
         "php": ">=7",
         "ext-bcmath" : "*",
-        "somnambulist/collection": "2.*",
-        "somnambulist/value-objects": "1.*"
+        "somnambulist/collection": "~2.1",
+        "somnambulist/value-objects": "~1.3"
     },
     "require-dev": {
         "nesbot/carbon": "1.22.*",
         "doctrine/orm": "2.5.*",
-        "phpunit/phpunit": "~6.0",
+        "phpunit/phpunit": "~6.3",
         "illuminate/events": "~5.4",
         "symfony/event-dispatcher": "~3.3",
         "symfony/var-dumper": "~3.3",

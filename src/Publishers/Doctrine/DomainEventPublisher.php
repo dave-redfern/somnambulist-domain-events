@@ -127,9 +127,10 @@ class DomainEventPublisher implements EventSubscriber
          * If overriding this subscriber, fire messages to rabbitmq, beanstalk etc here
          * or replace doctrine event manager with another event dispatcher.
          */
-        $events->call(function ($event) use ($em, $evm) {
+        $events->each(function ($event) use ($em, $evm) {
             /** @var AbstractDomainEvent $event */
             $evm->dispatchEvent('on' . $event->name(), EventProxy::createFrom($event));
+            return true;
         });
 
         $this->entities->reset();

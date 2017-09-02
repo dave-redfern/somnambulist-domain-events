@@ -5,7 +5,7 @@
  *
  * @author Dave Redfern
  */
-class EventListener
+class DomainEventListener
 {
 
     public function onMyEntityCreated($event)

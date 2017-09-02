@@ -46,34 +46,38 @@ and pass any specific parameters into the event that you want to make available 
 listener. This could be the old vs new or the entire entity reference, it is entirely
 up to you.
 
-    public function __construct($id, $name, $another, $createdAt)
-    {
-        $this->id        = $id;
-        $this->name      = $name;
-        $this->another   = $another;
-        $this->createdAt = $createdAt;
-        $this->raise(new MyEntityCreatedEvent(['id' => $id, 'name' => $name, 'another' => $another]));
-    }
+```php
+public function __construct($id, $name, $another, $createdAt)
+{
+    $this->id        = $id;
+    $this->name      = $name;
+    $this->another   = $another;
+    $this->createdAt = $createdAt;
+    $this->raise(new MyEntityCreatedEvent(['id' => $id, 'name' => $name, 'another' => $another]));
+}
+```
 
 Generally it is better to not raise events in the constructor but instead to use named
 constructors for primary object creation:
 
-    private function __construct($id, $name, $another, $createdAt)
-    {
-        $this->id        = $id;
-        $this->name      = $name;
-        $this->another   = $another;
-        $this->createdAt = $createdAt;
-        $this->raise(new MyEntityCreatedEvent(['id' => $id, 'name' => $name, 'another' => $another]));
-    }
+```php
+private function __construct($id, $name, $another, $createdAt)
+{
+    $this->id        = $id;
+    $this->name      = $name;
+    $this->another   = $another;
+    $this->createdAt = $createdAt;
+    $this->raise(new MyEntityCreatedEvent(['id' => $id, 'name' => $name, 'another' => $another]));
+}
+
+public static function create($id, $name, $another)
+{
+    $entity = new static($id, $name, $another, new DateTime());
+    $entity->raise(new MyEntityCreatedEvent(['id' => $id, 'name' => $name, 'another' => $another]));
     
-    public static function create($id, $name, $another)
-    {
-        $entity = new static($id, $name, $another, new DateTime());
-        $entity->raise(new MyEntityCreatedEvent(['id' => $id, 'name' => $name, 'another' => $another]));
-        
-        return $entity;
-    }
+    return $entity;
+}
+```
 
 ### Firing Domain Events
 
@@ -125,27 +129,29 @@ Laravels EventDispatcher does not have a typed event meaning you don't need any 
 translation of events. An integration is provided to make registering event emitting
 objects, similar to the Symfony integration.
 
-    class SomeServiceClass
-    {
-        protected $publisher;
-        
-        public function __construct($publisher)
-        {
-            $this->publisher = $publisher;
-        }
+```php
+class SomeServiceClass
+{
+    protected $publisher;
     
-        public function doSomethingComplicated()
-        {
-            $object = new SomeDomainObject(); // or fetch from wherever
-            $this->publisher->publishEventsFrom($object);
-            
-            $object->callSomeMethod();
-            $object->callSomeOtherMethod();
-            $object->doSomethingElse();
-            
-            $this->publisher->dispatch();
-        }
+    public function __construct($publisher)
+    {
+        $this->publisher = $publisher;
     }
+
+    public function doSomethingComplicated()
+    {
+        $object = new SomeDomainObject(); // or fetch from wherever
+        $this->publisher->publishEventsFrom($object);
+        
+        $object->callSomeMethod();
+        $object->callSomeOtherMethod();
+        $object->doSomethingElse();
+        
+        $this->publisher->dispatch();
+    }
+}
+```
 
 This will order and dispatch the events via the standard Laravel Event Dispatcher.
 
@@ -175,18 +181,20 @@ The listener should add methods that are named:
 
 The example from the unit test:
 
-    class EventListener
-    {    
-        public function onMyEntityCreated(MyEntityCreatedEvent $event)
-        {
-            printf(
-                "New item created with id: %s, name: %s, another: %s",
-                $event->getProperty('id'),
-                $event->getProperty('name'),
-                $event->getProperty('another')
-            );
-        }
+```php
+class EventListener
+{    
+    public function onMyEntityCreated(MyEntityCreatedEvent $event)
+    {
+        printf(
+            "New item created with id: %s, name: %s, another: %s",
+            $event->getProperty('id'),
+            $event->getProperty('name'),
+            $event->getProperty('another')
+        );
     }
+}
+```
 
 The unit test shows how it can be implemented.
 
