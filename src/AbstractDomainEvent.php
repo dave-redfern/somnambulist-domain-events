@@ -18,6 +18,7 @@
 
 namespace Somnambulist\DomainEvents;
 
+use Somnambulist\Collection\Collection;
 use Somnambulist\Collection\Immutable;
 use Somnambulist\DomainEvents\Exceptions\InvalidPropertyException;
 use Somnambulist\ValueObjects\Types\Identity\Aggregate;
@@ -120,6 +121,29 @@ abstract class AbstractDomainEvent
     }
 
     /**
+     * Change the context of the event, returning a new event instance
+     *
+     * Context is merged with the current event context, all other details are preserved including the
+     * original time of the event.
+     *
+     * @param array $context
+     *
+     * @return static
+     */
+    public function updateContext(array $context = [])
+    {
+        $event = new static(
+            $this->properties->toArray(),
+            Collection::collect($this->context->toArray())->merge($context)->toArray(),
+            $this->version
+        );
+        $event->time      = $this->time;
+        $event->aggregate = $this->aggregate;
+
+        return $event;
+    }
+
+    /**
      * @return float
      */
     public function time(): float
@@ -178,9 +202,9 @@ abstract class AbstractDomainEvent
     }
 
     /**
-     * @return Aggregate
+     * @return Aggregate|null
      */
-    public function aggregate()
+    public function aggregate(): ?Aggregate
     {
         return $this->aggregate;
     }

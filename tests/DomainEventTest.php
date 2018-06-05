@@ -92,6 +92,21 @@ class DomainEventTest extends TestCase
     /**
      * @group domain-event
      */
+    public function testCanUpdateContext()
+    {
+        $event = NamespacedEvent::create(['foo' => 'bar'], ['context' => 'value'], 2);
+
+        $updated = $event->updateContext(['user' => 'user@example.example']);
+
+        $this->assertEquals($event->time(), $updated->time());
+        $this->assertEquals($event->version(), $updated->version());
+        $this->assertEquals($event->properties()->toArray(), $updated->properties()->toArray());
+        $this->assertEquals(['context' => 'value', 'user' => 'user@example.example'], $updated->context()->toArray());
+    }
+
+    /**
+     * @group domain-event
+     */
     public function testCanGetVersion()
     {
         $event = $this->getMockForAbstractClass(AbstractDomainEvent::class);
