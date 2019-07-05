@@ -1,3 +1,7 @@
+# Moved to https://github.com/dave-redfern/somnambulist-domain
+
+This repository has been archived. Please update to the combined package.s
+
 ## Domain Events for PHP Entities
 
 Adds support for Domain Events to plain old PHP entities. This package is inspired by and based
